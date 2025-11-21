@@ -1,5 +1,6 @@
 from django.db import models
 from categories.models import Category
+from categories.models import Estacionamento
 # Create your models here.
 
 class Product(models.Model):
@@ -10,6 +11,21 @@ class Product(models.Model):
     photo = models.ImageField('Foto', upload_to='photos', null=True, blank=True)
     doc = models.FileField('Documentos', upload_to='docs', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+class Vaga(models.Model):
+    vaga_id = models.AutoField(primary_key=True)
+    numero = models.IntegerField()
+    tipo_vaga = models.CharField(max_length=50)
+    status = models.BooleanField(default=True)  
+
+    estacionamento = models.ForeignKey(
+        Estacionamento,
+        on_delete=models.CASCADE,
+        related_name="vagas"
+    )
+
+    def __str__(self):
+        return f"Vaga {self.numero} - {self.tipo_vaga}"
 
     class Meta:
         verbose_name = 'Produto'
