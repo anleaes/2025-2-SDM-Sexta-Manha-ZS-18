@@ -7,6 +7,8 @@ class Product(models.Model):
     description = models.TextField('Descricao', max_length=100)
     date_fabrication = models.DateField('Data Fabricacao', auto_now=False, auto_now_add=False) 
     is_active = models.BooleanField('Ativo', default=False)
+    photo = models.ImageField('Foto', upload_to='photos', null=True, blank=True)
+    doc = models.FileField('Documentos', upload_to='docs', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     class Meta:
