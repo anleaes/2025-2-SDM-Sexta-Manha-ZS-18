@@ -4,6 +4,9 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField('Nome', max_length=50)
     description = models.TextField('Descricao', max_length=100)
+
+    def __str__(self):
+        return self.name
     
 class Estacionamento(models.Model):
     estacionamento_id = models.AutoField(primary_key=True)
@@ -42,13 +45,10 @@ class Tarifa(models.Model):
         related_name="tarifas"
     )
 
+    class Meta:
+        verbose_name = 'Tarifa'
+        verbose_name_plural = 'Tarifas'
+        ordering = ['tarifa_id']  # ordering deve usar o campo correto da classe
+
     def __str__(self):
         return f"Tarifa do Estacionamento {self.estacionamento.nome}"
-
-    class Meta:
-        verbose_name = 'Categoria'
-        verbose_name_plural = 'Categorias'
-        ordering =['id']
-
-    def __str__(self):
-        return self.name

@@ -3,7 +3,7 @@ from clients.models import Client
 from products.models import Vaga
 from clients.models import Veiculo, Client
 
-# Create your models here.
+# Evite os imports diretos e use strings no campo ForeignKey
 class Order(models.Model):
     payment_method = models.CharField('Forma de Pagamento', max_length=30, choices=[
         ('boleto', 'Boleto'),
@@ -20,10 +20,11 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Pedido'
         verbose_name_plural = 'Pedidos'
-        ordering =['id']
+        ordering = ['id']
 
     def __str__(self):
-        return "%s" % (self.client) 
+        return "%s" % (self.client)
+
     
 class Reserva(models.Model):
     reserva_id = models.AutoField(primary_key=True)

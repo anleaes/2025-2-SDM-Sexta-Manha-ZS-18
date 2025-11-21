@@ -1,8 +1,7 @@
 from django.db import models
-from categories.models import Category
-from categories.models import Estacionamento
-# Create your models here.
+from categories.models import Category, Estacionamento
 
+# Create your models here.
 class Product(models.Model):
     name = models.CharField('Nome', max_length=50)
     description = models.TextField('Descricao', max_length=100)
@@ -11,6 +10,10 @@ class Product(models.Model):
     photo = models.ImageField('Foto', upload_to='photos', null=True, blank=True)
     doc = models.FileField('Documentos', upload_to='docs', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name  # Método correto para retornar o nome do produto
+
 
 class Vaga(models.Model):
     vaga_id = models.AutoField(primary_key=True)
@@ -25,12 +28,9 @@ class Vaga(models.Model):
     )
 
     def __str__(self):
-        return f"Vaga {self.numero} - {self.tipo_vaga}"
+        return f"Vaga {self.numero} - {self.tipo_vaga}"  # Método correto para descrição da vaga
 
     class Meta:
-        verbose_name = 'Produto'
-        verbose_name_plural = 'Produtos'
-        ordering =['id']
-
-    def __str__(self):
-        return self.name
+        verbose_name = 'Vaga'
+        verbose_name_plural = 'Vagas'
+        ordering = ['vaga_id']  # Usando 'vaga_id' para ordenação
